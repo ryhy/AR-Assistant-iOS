@@ -1,0 +1,6 @@
+framework module Pods_CloudyWeatherTests {
+  umbrella header "Pods-CloudyWeatherTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

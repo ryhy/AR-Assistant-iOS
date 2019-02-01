@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseFirestore
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +18,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        FirebaseApp.configure()
+        
+        IQKeyboardManager.shared.enable = true
+        
+//        do {
+//            try Auth.auth().signOut()
+//        } catch let err {
+//        }
+        
+        if (Auth.auth().currentUser != nil) {
+//            let sb = UIStoryboard.init(name: "Main", bundle: nil)
+//            let view = sb.instantiateViewController(withIdentifier: "ar") as! ViewController
+
+            let sb = UIStoryboard.init(name: "Main", bundle: nil)
+//            let view = sb.instantiateViewController(withIdentifier: "RaderViewController") as! RaderViewController
+//            window?.rootViewController = view
+            let view = sb.instantiateViewController(withIdentifier: "ar") as!  ViewController
+            window?.rootViewController = view
+        } else {
+            let sb = UIStoryboard.init(name: "Main", bundle: nil)
+            let view = sb.instantiateViewController(withIdentifier: "invite") as! InvitationViewController
+            window?.rootViewController = view
+        }
         return true
     }
 
