@@ -83,7 +83,6 @@ class IntentService: DB {
         }
     }
     
-    
     func fetchNotAssisted(collection: String? = nil, completion: @escaping (([QueryDocumentSnapshot]?) -> Void)) {
         multiplefetch { (query) in
             let unspoken = query?.documents.filter( { $0.data()["assisted"] as! Bool == false} )
@@ -111,7 +110,6 @@ class IntentService: DB {
             }
         }
     }
-    
     
     func affectedFromGH(value: [String: Any], completion: ((Error?) -> Void)?) {
         self.getUserID { (userid) in

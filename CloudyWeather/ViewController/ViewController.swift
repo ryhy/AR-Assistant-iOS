@@ -96,7 +96,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     var leftAliens = 0;
     
     let animationService = AnimationService.init();
-    var arservice: ARService!
+    var arservice: ARService!;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,7 +109,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     private func initializeAR() {
-        arservice = ARService(sceneView: self.sceneView)
+        arservice = ARService(sceneView: self.sceneView);
         invaderService = InvaderService.init();
         invaderService.fetchScore { (score) in
             DispatchQueue.main.async {
@@ -117,8 +117,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 self.killScore.text = "\(self.killNum)"
             }
         }
-        weatherAPI = WeatherAPI.init()
-        invaderService.updateBulletNumber(runout: false)
+        
+        weatherAPI = WeatherAPI.init();
+        invaderService.updateBulletNumber(runout: false);
+        
         self.addGesture(
             lhs_selector: #selector(self.leftSwiped(sender:)),
             rhs_selector: #selector(self.rightSwiped(sender:))
@@ -126,9 +128,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     private func initializeRaderView(alienNumber: Int) {
-        var alienBox = [Aliens]()
+        var alienBox = [Aliens]();
         for i in 0...alienNumber {
-            let alien = Aliens(title: "ship_\(i)", color: .lightGray)
+            let alien = Aliens(title: "ship_\(i)", color: .lightGray);
             alienBox.append(alien);
         }
         items = alienBox.map { Item(uniqueKey: $0.title, value: $0) };
@@ -195,7 +197,7 @@ extension ViewController {
                 print("All Aliens in total: ", self.getAllAliens().count);
                 self.getAllAliens().forEach({ (alien) in
 //                    print(alien.name, alien.hasActions)
-                    alien.removeAction(forKey: "moving")
+                    alien.removeAction(forKey: "moving");
                 });
                 self.assistant.say(text: "10秒後に動き始める、その前に倒すのだ。")
                 self.updateTableView()
@@ -250,7 +252,7 @@ extension ViewController {
                 
                 IntentManager.shared.OtherWeaponsIntent.affectedFromGH(value: ["canChange": false], completion: { (err) in
                     print(err?.localizedDescription ?? "err")
-                })
+                });
             }
         }
         
