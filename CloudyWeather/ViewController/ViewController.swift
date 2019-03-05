@@ -26,6 +26,28 @@ import HGRippleRadarView
 // - 本物天気データに合わせる。
 
 
+enum Particles: String {
+    
+    case bokeh
+    case confetti
+    case fire
+    case rain
+    case reactor
+    case smoke
+    case stars
+    
+    static var order: [Particles] = [
+        .bokeh,
+        .confetti,
+        .fire,
+        .rain,
+        .reactor,
+        .smoke,
+        .stars
+    ]
+}
+
+
 class ViewController: UIViewController, ARSCNViewDelegate {
     
     @IBOutlet weak var weatherForcastLabel: UILabel! {
@@ -81,7 +103,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             tableView.backgroundColor = .clear
             tableView.delegate = self
             tableView.dataSource = self
-//            tableView.isHidden = true
+            tableView.isHidden = true
         }
     }
     
@@ -92,11 +114,14 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     var timer: Timer? = nil;
     var invaderService: InvaderService!
     var weatherAPI: WeatherAPI!
-    var bullet = 50;
+    var bullet = 20;
     var leftAliens = 0;
     
     let animationService = AnimationService.init();
     var arservice: ARService!;
+    
+    private var selectedParticle: Particles = .fire
+    private var currentParticleNode: SCNNode?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,10 +164,26 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     @objc func leftSwiped(sender: UISwipeGestureRecognizer) {
         print("left swiped!");
+        let sb = UIStoryboard.init(name: "Main", bundle: nil);
+        let shopViewController = sb.instantiateViewController(withIdentifier: "shop") as! ShopViewController;
+        shopViewController.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+        let nav = UINavigationController(rootViewController: shopViewController);
+        shopViewController.bombDelegate = self
+        self.present(nav, animated: true) {
+            print("presented Shop VC");
+        }
     }
     
     @objc func rightSwiped(sender: UISwipeGestureRecognizer) {
         print("right swiped!")
+        
+        let childs = self.sceneView.scene.rootNode.childNodes.filter {$0.name == "bomb"}
+        childs.forEach({ (node) in
+            node.removeFromParentNode()
+            self.addParticle(self.selectedParticle, to: childs)
+            self.timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.explodeit), userInfo: nil, repeats: false)
+            print("バイバイ、ぼむ")
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -161,15 +202,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated);
-        
         print("viewWillDisappear")
-        
-//        IntentManager.shared.SpaceStopIntent.stopListening()
-//        IntentManager.shared.AircraftIntent.stopListening()
-//        IntentManager.shared.MoreBulletIntent.stopListening()
-//        IntentManager.shared.OtherWeaponsIntent.stopListening()
-//        IntentManager.shared.RemoveInvaderIntent.stopListening()
-
         sceneView.session.pause()
     }
     
@@ -178,7 +211,23 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         print("viewDidDisappear")
     }
     
-    
+    private func addParticle(_ particle: Particles, to nodes: [SCNNode]){
+        currentParticleNode?.removeFromParentNode()
+        
+        let particle = SCNParticleSystem.init(named: particle.rawValue + ".scnp", inDirectory: "art.scnassets")
+        let particleNode = SCNNode()
+        particleNode.name = "fire"
+        particleNode.addParticleSystem(particle!)
+        particleNode.scale = SCNVector3Make(1.5, 1.5, 1.5)
+        nodes.forEach { (node) in
+            particleNode.position = node.position
+        }
+        
+        sceneView.scene.rootNode.addChildNode(particleNode)
+        
+        currentParticleNode = particleNode
+        
+    }
     
 }
 
@@ -191,12 +240,10 @@ extension ViewController {
         IntentManager.shared.SpaceStopIntent.setSingleStateListener { (dict) in
             print("SpaceStopIntent in lisening vc");
             print(dict);
-//            let stopped = true
             let stopped = dict["stopped"] as! Bool
             if stopped {
                 print("All Aliens in total: ", self.getAllAliens().count);
                 self.getAllAliens().forEach({ (alien) in
-//                    print(alien.name, alien.hasActions)
                     alien.removeAction(forKey: "moving");
                 });
                 self.assistant.say(text: "10秒後に動き始める、その前に倒すのだ。")
@@ -217,7 +264,6 @@ extension ViewController {
                 for _ in 0...5 {
                     BubbleMissile.add(sceneView: self.sceneView);
                 }
-                
                 self.assistant.say(text: "応援を出動させた、共に戦ってくれ。")
                 self.updateTableView()
                 
@@ -237,6 +283,24 @@ extension ViewController {
             print(dict);
         }
         
+        IntentManager.shared.ExplodeBombIntent.setSingleStateListener { (dict) in
+            let state = dict["state"] as! Bool
+            let childs = self.sceneView.scene.rootNode.childNodes.filter {$0.name == "bomb"}
+            if childs.count > 0 {
+                if state {
+                    childs.forEach({ (node) in
+                        node.removeFromParentNode()
+                        self.addParticle(self.selectedParticle, to: childs)
+                        self.timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(self.explodeit), userInfo: nil, repeats: false)
+                        print("バイバイ、ぼむ")
+                    })
+                    IntentManager.shared.ExplodeBombIntent.affectedFromGH(value: ["state": false], completion: { (err) in
+                        print(err?.localizedDescription ?? "err")
+                    })
+                }
+            }
+        }
+        
         IntentManager.shared.OtherWeaponsIntent.setSingleStateListener { (dict) in
             print("OtherWeaponsIntent in lisening vc");
             print(dict);
@@ -246,6 +310,7 @@ extension ViewController {
                 let shopViewController = sb.instantiateViewController(withIdentifier: "shop") as! ShopViewController;
                 let nav = UINavigationController(rootViewController: shopViewController);
 //                shopViewController.modalPresentationStyle = UIModalPresentationStyle.overFullScreen
+                shopViewController.bombDelegate = self
                 self.present(nav, animated: true) {
                     print("presented Shop VC");
                 }
@@ -320,22 +385,14 @@ extension ViewController: SCNPhysicsContactDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
         
     }
-    
-    func addHitEffect(to node: SCNNode) {
-        let explosion = SCNParticleSystem(named: "Fire.scnp", inDirectory: nil)!
-        let explosionNode = SCNNode()
-        explosionNode.name = "fire"
-        explosionNode.position = node.presentation.position //2
-        explosionNode.scale = SCNVector3.init(0.2, 0.2, 0.2)
-        self.sceneView.scene.rootNode.addChildNode(explosionNode)
-        explosionNode.addParticleSystem(explosion) //3
-        explosionNode.removeFromParentNode()
-    }
-    
+
     func embedAnimation(to nodes: [SCNNode]) {
-        nodes.forEach { (node) in self.animationService.addHitAnimation(node, from: self.sceneView) }
+        
+        nodes.forEach { (node) in
+            self.animationService.addHitAnimation(node, from: self.sceneView)
+        }
         self.invaderService.killedInvader();
-        addHitEffect(to: nodes.first!)
+
     }
     
     func removeEnemyFromRader(nodes: [SCNNode]) {
@@ -363,7 +420,14 @@ extension ViewController: SCNPhysicsContactDelegate {
         if firstNode.physicsBody?.categoryBitMask == CollisionTypes.bulletPhysics.rawValue
             || secondNode.physicsBody?.categoryBitMask == CollisionTypes.invaderPhysics.rawValue
             && firstNode.physicsBody?.categoryBitMask == CollisionTypes.invaderPhysics.rawValue
-            || secondNode.physicsBody?.categoryBitMask == CollisionTypes.bulletPhysics.rawValue {
+            || secondNode.physicsBody?.categoryBitMask == CollisionTypes.bulletPhysics.rawValue
+            
+            && firstNode.physicsBody?.categoryBitMask == CollisionTypes.invaderPhysics.rawValue
+            || secondNode.physicsBody?.categoryBitMask == CollisionTypes.bombPhysics.rawValue
+            && firstNode.physicsBody?.categoryBitMask == CollisionTypes.bombPhysics.rawValue
+            || secondNode.physicsBody?.categoryBitMask == CollisionTypes.invaderPhysics.rawValue
+        
+        {
             
             if (contact.nodeA.name!.components(separatedBy: "_").first! == "ship"
                 || contact.nodeB.name!.components(separatedBy: "_").first! == "ship") {
@@ -391,6 +455,7 @@ extension ViewController: SCNPhysicsContactDelegate {
                 contact.nodeB.removeFromParentNode();
                 print("Deleted!!!");
             }
+            
         }
     }
     
@@ -445,15 +510,14 @@ extension ViewController: SCNPhysicsContactDelegate {
 
 extension ViewController {
     
-    func timerStart() {
-        timer = Timer.scheduledTimer(timeInterval: 20,
-                                     target: self, selector: #selector(self.timerUpdate),
-                                     userInfo: nil, repeats: true)
-    }
+//    func timerStart() {
+//        timer = Timer.scheduledTimer(timeInterval: 20,
+//                                     target: self, selector: #selector(self.timerUpdate),
+//                                     userInfo: nil, repeats: true)
+//    }
 
-    @objc func timerUpdate() {
-        self.arservice.createShips(number: 2);
-        self.initializeRaderView(alienNumber: 2);
+    @objc func explodeit() {
+        self.currentParticleNode?.removeFromParentNode()
     }
 
 
@@ -584,3 +648,14 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
 }
 
+
+
+extension ViewController : BombDelegate {
+    
+    func place() {
+        let arservice = ARService(sceneView: self.sceneView)
+        arservice.addBomb()
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+}

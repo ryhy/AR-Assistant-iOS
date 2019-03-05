@@ -26,7 +26,6 @@ class AnimationService {
             animations: {
                 sender.transform = CGAffineTransform.identity
         }, completion: { _ in print("UIButton is bouncing!!")} );
-    
         
     }
     

@@ -268,14 +268,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Oar-Ha-GSe">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                                <rect key="frame" x="15" y="15" width="344" height="575"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="shopcell" textLabel="Y01-MT-ghp" detailTextLabel="8h5-kJ-PNI" rowHeight="72" style="IBUITableViewCellStyleSubtitle" id="5Ty-fQ-lAy">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="72"/>
+                                        <rect key="frame" x="0.0" y="28" width="344" height="72"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5Ty-fQ-lAy" id="js0-yc-aj3">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="71.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="344" height="71.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Y01-MT-ghp">
@@ -300,10 +300,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Oar-Ha-GSe" firstAttribute="trailing" secondItem="qcn-cc-etB" secondAttribute="trailing" id="MFH-zt-qTL"/>
-                            <constraint firstItem="Oar-Ha-GSe" firstAttribute="bottom" secondItem="qcn-cc-etB" secondAttribute="bottom" id="XG5-lE-cbJ"/>
-                            <constraint firstItem="Oar-Ha-GSe" firstAttribute="leading" secondItem="qcn-cc-etB" secondAttribute="leading" id="rF8-Am-aMM"/>
-                            <constraint firstItem="Oar-Ha-GSe" firstAttribute="top" secondItem="I48-GB-Adt" secondAttribute="top" id="v8J-SA-616"/>
+                            <constraint firstItem="Oar-Ha-GSe" firstAttribute="trailing" secondItem="qcn-cc-etB" secondAttribute="trailing" constant="-16" id="AUP-HE-bg9"/>
+                            <constraint firstItem="Oar-Ha-GSe" firstAttribute="bottom" secondItem="qcn-cc-etB" secondAttribute="bottom" constant="-13" id="TNs-Gl-mUw"/>
+                            <constraint firstItem="Oar-Ha-GSe" firstAttribute="leading" secondItem="qcn-cc-etB" secondAttribute="leading" constant="15" id="haS-FK-Kjo"/>
+                            <constraint firstItem="Oar-Ha-GSe" firstAttribute="top" secondItem="qcn-cc-etB" secondAttribute="top" constant="15" id="hkP-jC-Gdg"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="qcn-cc-etB"/>
                     </view>
@@ -321,7 +321,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="58i-3v-gLw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4078" y="552"/>
+            <point key="canvasLocation" x="4077.5999999999999" y="551.87406296851577"/>
         </scene>
         <!--Rader View Controller-->
         <scene sceneID="Au8-a8-zAt">

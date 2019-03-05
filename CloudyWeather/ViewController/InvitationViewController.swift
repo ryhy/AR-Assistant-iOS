@@ -18,7 +18,9 @@ class InvitationViewController: UIViewController {
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var invitationCard: UIView! {
         didSet {
-            invitationCard.dropShadow(color: .lightGray, opacity: 1, offSet: CGSize(width: -1, height: 1), radius: 3, scale: true)
+            invitationCard.dropShadow(color: .lightGray,
+                                      opacity: 1, offSet: CGSize(width: -1, height: 1),
+                                      radius: 3, scale: true)
         }
     }
     
@@ -52,7 +54,6 @@ class InvitationViewController: UIViewController {
             print("ユーザーの準備完了");
         }
     }
-
 
     func moveToARVC() {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)

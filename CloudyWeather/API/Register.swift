@@ -57,7 +57,6 @@ class Register {
         }
     }
     
-    
     func updateUser(email: String, id: String) {
         print("アップデート")
         db.collection("members").getDocuments { (snapshot, error) in

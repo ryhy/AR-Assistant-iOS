@@ -18,6 +18,7 @@ class IntentManager {
     let OtherWeaponsIntent = IntentService(intentname: "OtherWeaponsIntent")
     let MoreBulletIntent = IntentService(intentname: "MoreBulletIntent")
     let AircraftIntent = IntentService(intentname: "AircraftIntent")
+    let ExplodeBombIntent = IntentService(intentname: "ExplodeBombIntent")
     
     func removeAllListeners() {
         [

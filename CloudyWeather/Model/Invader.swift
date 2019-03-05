@@ -10,6 +10,7 @@ import Foundation
 import ARKit
 
 class Invader: SCNNode {
+    
     let controlNode = SCNNode()
     
     init(with points: [CGPoint]) {

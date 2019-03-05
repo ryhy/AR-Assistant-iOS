@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import ARKit
+
 
 class Shop {
     var title: String
@@ -35,10 +37,19 @@ struct ProductStore {
     }
 }
 
+protocol BombDelegate {
+    func place()
+}
+
 class ShopViewController: UIViewController {
 
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.layer.cornerRadius = 15
+        }
+    }
     
+    var bombDelegate: BombDelegate? = nil
     
     var items = ProductStore.fetch()
     
@@ -46,11 +57,15 @@ class ShopViewController: UIViewController {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        
+        view.backgroundColor = .clear
+        view.isOpaque = false
     }
 
     @IBAction func closeVC(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
+    
 }
 
 
@@ -72,6 +87,12 @@ extension ShopViewController: UITableViewDataSource, UITableViewDelegate {
         cell.detailTextLabel?.text = items[indexPath.row].description
         cell.imageView?.image = UIImage(named: items[indexPath.row].image)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 4 {
+            bombDelegate?.place()
+        }
     }
     
     

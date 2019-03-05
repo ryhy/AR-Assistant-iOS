@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F02EA64222E29CE008BF187 /* Bomb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F02EA63222E29CE008BF187 /* Bomb.swift */; };
 		0F76ECCE21F8135A000C3BF7 /* TTS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F76ECCD21F8135A000C3BF7 /* TTS.swift */; };
 		0F76ECD021F81583000C3BF7 /* RaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F76ECCF21F81583000C3BF7 /* RaderViewController.swift */; };
 		0F76ECD221F818D7000C3BF7 /* Aliens.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F76ECD121F818D7000C3BF7 /* Aliens.swift */; };
@@ -48,8 +49,6 @@
 		0FC9882121F6FBC700DC6ECA /* BubbleMissile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC9882021F6FBC700DC6ECA /* BubbleMissile.swift */; };
 		0FC9882321F6FDF400DC6ECA /* bubble.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 0FC9882221F6FDF400DC6ECA /* bubble.jpg */; };
 		0FC9882521F7038900DC6ECA /* LaserBeam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC9882421F7038900DC6ECA /* LaserBeam.swift */; };
-		0FC9882821F70AFB00DC6ECA /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 0FC9882621F70AFB00DC6ECA /* spark.png */; };
-		0FC9882921F70AFB00DC6ECA /* Fire.scnp in Resources */ = {isa = PBXBuildFile; fileRef = 0FC9882721F70AFB00DC6ECA /* Fire.scnp */; };
 		43BA731FBCED882D633F2924 /* Pods_CloudyWeather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9994ACA1D558AD5A5263BD46 /* Pods_CloudyWeather.framework */; };
 		9DAE1496B3E60A27A5AC93AF /* Pods_CloudyWeatherUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B0567391B2A567B8A377CDE /* Pods_CloudyWeatherUITests.framework */; };
 		B5FFD02AE85434F99DA551B6 /* Pods_CloudyWeatherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E8E8EAE89A64B1CAE33A79B7 /* Pods_CloudyWeatherTests.framework */; };
@@ -73,6 +72,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F02EA63222E29CE008BF187 /* Bomb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bomb.swift; sourceTree = "<group>"; };
 		0F76ECCD21F8135A000C3BF7 /* TTS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTS.swift; sourceTree = "<group>"; };
 		0F76ECCF21F81583000C3BF7 /* RaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RaderViewController.swift; sourceTree = "<group>"; };
 		0F76ECD121F818D7000C3BF7 /* Aliens.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Aliens.swift; sourceTree = "<group>"; };
@@ -125,8 +125,6 @@
 		0FC9882021F6FBC700DC6ECA /* BubbleMissile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleMissile.swift; sourceTree = "<group>"; };
 		0FC9882221F6FDF400DC6ECA /* bubble.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bubble.jpg; sourceTree = "<group>"; };
 		0FC9882421F7038900DC6ECA /* LaserBeam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaserBeam.swift; sourceTree = "<group>"; };
-		0FC9882621F70AFB00DC6ECA /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
-		0FC9882721F70AFB00DC6ECA /* Fire.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Fire.scnp; sourceTree = "<group>"; };
 		29646173D4D83246F86F720F /* Pods-CloudyWeather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudyWeather.release.xcconfig"; path = "Pods/Target Support Files/Pods-CloudyWeather/Pods-CloudyWeather.release.xcconfig"; sourceTree = "<group>"; };
 		5EA9F8F569BF777427E362CB /* Pods-CloudyWeatherUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudyWeatherUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CloudyWeatherUITests/Pods-CloudyWeatherUITests.release.xcconfig"; sourceTree = "<group>"; };
 		74ADD9E4450E178EB2F07200 /* Pods-CloudyWeatherTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudyWeatherTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CloudyWeatherTests/Pods-CloudyWeatherTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -205,8 +203,6 @@
 				0FB400F121E5E57D00AD22FB /* Utils.swift */,
 				0FB400FB21E88C2900AD22FB /* constant.swift */,
 				0FB4016B21F0197B00AD22FB /* ProgressBar.swift */,
-				0FC9882621F70AFB00DC6ECA /* spark.png */,
-				0FC9882721F70AFB00DC6ECA /* Fire.scnp */,
 				0FB4011321EDC34600AD22FB /* Effect */,
 				0FB400B821E5C33B00AD22FB /* art.scnassets */,
 				0FB400E621E5C3FF00AD22FB /* ViewController */,
@@ -274,6 +270,7 @@
 				0FC9882021F6FBC700DC6ECA /* BubbleMissile.swift */,
 				0FC9882421F7038900DC6ECA /* LaserBeam.swift */,
 				0F76ECD121F818D7000C3BF7 /* Aliens.swift */,
+				0F02EA63222E29CE008BF187 /* Bomb.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -447,11 +444,9 @@
 				0FB400B921E5C33B00AD22FB /* art.scnassets in Resources */,
 				0FB400C321E5C33E00AD22FB /* LaunchScreen.storyboard in Resources */,
 				0FB400F421E5EECC00AD22FB /* GoogleService-Info.plist in Resources */,
-				0FC9882821F70AFB00DC6ECA /* spark.png in Resources */,
 				0FB4011421EDC34600AD22FB /* Effect in Resources */,
 				0FB400C021E5C33E00AD22FB /* Assets.xcassets in Resources */,
 				0FC9882321F6FDF400DC6ECA /* bubble.jpg in Resources */,
-				0FC9882921F70AFB00DC6ECA /* Fire.scnp in Resources */,
 				0FB400BE21E5C33B00AD22FB /* Main.storyboard in Resources */,
 				0F76ED212202F0BC000C3BF7 /* appiconimage.png in Resources */,
 			);
@@ -628,6 +623,7 @@
 				0FC9881F21F6DDE300DC6ECA /* Missile.swift in Sources */,
 				0FC9882121F6FBC700DC6ECA /* BubbleMissile.swift in Sources */,
 				0F76ECD021F81583000C3BF7 /* RaderViewController.swift in Sources */,
+				0F02EA64222E29CE008BF187 /* Bomb.swift in Sources */,
 				0FB400BB21E5C33B00AD22FB /* ViewController.swift in Sources */,
 				0F76ECDD21FEB7C4000C3BF7 /* IntentManager.swift in Sources */,
 				0FC9881921F5C38400DC6ECA /* AnimationService.swift in Sources */,

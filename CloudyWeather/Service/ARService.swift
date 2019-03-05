@@ -21,6 +21,7 @@ class ARService {
         self.sceneView = sceneView;
     }
     
+    
     func getUserVector() -> (SCNVector3, SCNVector3) { // (direction, position)
         if let frame = self.sceneView.session.currentFrame {
             let mat = SCNMatrix4(frame.camera.transform)
@@ -34,6 +35,7 @@ class ARService {
         return (SCNVector3(0, 0, 0), SCNVector3(0, 0, -0.2))
     }
     
+    
     func detectRunaway(callback: (() -> Void)) {
         let ships = self.sceneView.scene.rootNode.childNodes.filter({$0.name == "ship"})
         for ship in ships {
@@ -46,6 +48,7 @@ class ARService {
             }
         }
     }
+    
     
     func addBullet() {
         let bulletsNode = Bullet()
@@ -61,6 +64,18 @@ class ARService {
         self.sceneView.scene.rootNode.addChildNode(bulletsNode)
     }
     
+    
+    func addBomb() {
+        let bulletsNode = Bomb()
+        let (_, position) = self.getUserVector()
+        bulletsNode.position.x = position.x // SceneKit/AR coordinates are in meters
+        bulletsNode.position.y = position.y // SceneKit/AR coordinates are in meters
+        bulletsNode.position.z = position.z - 0.3 // SceneKit/AR coordinates are in meters
+        bulletsNode.name = "bomb"
+        self.sceneView.scene.rootNode.addChildNode(bulletsNode)
+    }
+    
+    
     func addArmy(to spacechipnode: SCNNode) {
         let army = Army.init()
         army.position.x = spacechipnode.position.x
@@ -75,6 +90,7 @@ class ARService {
         let laser = Laser(arScnView: sceneView)
         laser.on()
     }
+    
     
     func stopLaserBean(sceneView: ARSCNView) {
         let laser = Laser(arScnView: sceneView)

@@ -20,6 +20,7 @@ struct CollisionTypes : OptionSet {
     static let invaderPhysics  = CollisionTypes(rawValue: 1 << 0)
     static let otherPhysics = CollisionTypes(rawValue: 1 << 1)
     static let bulletPhysics = CollisionTypes(rawValue: 1 << 2)
+    static let bombPhysics = CollisionTypes(rawValue: 1 << 3)
 }
 
 enum SoundEffect: String {
